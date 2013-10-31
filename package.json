@@ -2,12 +2,15 @@
   "name": "lightjs",
   "version": "0.0.1",
   "description": "light package manager",
-  "main": "index.js",
+  "main": "light.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+     "light": "bin/light"
+  },
    "dependencies": {
-    "commander" : "2.0.0",
+    "commander" : "1.3.2",
     "fis-repo-client" : "0.0.5",
 	"async" : "0.2.9",
 	"colors" : "0.6.2",

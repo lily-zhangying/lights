@@ -1,7 +1,5 @@
-var RepoClient = require("fis-repo-client"),
-    domain = "fe.baidu.com",
-    port = "8889",
-    client = new RepoClient(domain, port),
+var light = require("../light.js"),
+    client = light.client,
     path = require('path'),
     async = require('async'),
     fs = require('fs'),
@@ -12,8 +10,9 @@ var RepoClient = require("fis-repo-client"),
     exports.name = 'install';
     exports.usage = '<names> [path] [options]';
     exports.desc = 'install components and demos';
-    exports.registry = function install(commander){
+    exports.register = function install(commander){
         commander
+            .option('--deps', 'Install dependencies component', Boolean)
             .action(function(){
                 var args = Array.prototype.slice.call(arguments);
                 var dir = process.cwd(),
@@ -56,8 +55,8 @@ var RepoClient = require("fis-repo-client"),
                             client.util.log("error", "Install error : " + error, "red");
                         }else{
                             client.util.log("log", "Install success : ", "blue");
-                            if(fis.util.isFile(configFile)){
-                                var config = fis.util.readJSON(configFile),
+                            if(light.util.isFile(configFile)){
+                                var config = light.util.readJSON(configFile),
                                     dependencies = config.dependencies,
                                     componentDirs = [];
                                 for(var depend in dependencies){
@@ -86,8 +85,8 @@ var RepoClient = require("fis-repo-client"),
 
         var configFile = dir + "/" + CONFIG_FILE;
 
-        if(fis.util.isFile(configFile)){
-            var config = fis.util.readJSON(configFile),
+        if(light.util.isFile(configFile)){
+            var config = light.util.readJSON(configFile),
                 scaffold = config.scaffold;
             if(scaffold && !isEmptyObject(scaffold)){
                 client.util.log("log", "Start component [" + config.name + "] scaffold config.", "green");
@@ -105,14 +104,14 @@ var RepoClient = require("fis-repo-client"),
                 keyRegStr = keyRegStr.substr(0, keyRegStr.length-1);
 
                 var keyReg = new RegExp(keyRegStr, "gm"),
-                    files = fis.util.find(dir);
+                    files = light.util.find(dir);
 
                 async.mapSeries(scaffolds, prompt, function(error, values){
                     for(var i=0; i<files.length; i++){
 
                         //替换文件内容
-                        if(fis.util.isTextFile(files[i])){
-                            var content = fis.util.read(files[i]);
+                        if(light.util.isTextFile(files[i])){
+                            var content = light.util.read(files[i]);
                             if(keyReg.test(content)){
                                 var new_content = content.replace(keyReg, function(){
                                     var args = Array.prototype.slice.call(arguments);
@@ -123,7 +122,7 @@ var RepoClient = require("fis-repo-client"),
                                     }
                                     return args[0];
                                 });
-                                fis.util.write(files[i], new_content);
+                                light.util.write(files[i], new_content);
                             }
                         }
 
@@ -138,14 +137,14 @@ var RepoClient = require("fis-repo-client"),
                                 }
                                 return args[0];
                             });
-                            fis.util.copy(files[i], new_file);
-                            fis.util.del(files[i]);
+                            light.util.copy(files[i], new_file);
+                            light.util.del(files[i]);
                         }
                     }
                     var subDir = getSubDir(dir);
                     for(var i=0; i<subDir.length; i++){
                         if(keyReg.test(subDir[i])){
-                            fis.util.del(subDir[i]);
+                            light.util.del(subDir[i]);
                         }
                     }
                     client.util.log("log", "Finish component [" + config.name + "] scaffold config.", "green");
@@ -169,12 +168,12 @@ var RepoClient = require("fis-repo-client"),
 
 
     function getSubDir(dir){
-        if(fis.util.isDir(dir)){
+        if(light.util.isDir(dir)){
             var dirs = [];
             fs.readdirSync(dir).forEach(function(p){
                 if(p[0] != "."){
                     var tmp_file = dir + '/' + p;
-                    if(fis.util.isDir(tmp_file)){
+                    if(light.util.isDir(tmp_file)){
                         dirs = dirs.concat(getSubDir(tmp_file));
                     }
                 }
@@ -195,7 +194,7 @@ var RepoClient = require("fis-repo-client"),
             }else{
                 if(options.deps){
                     var componentJson = path.normalize(dir + "/" + component.name + "/" + CONFIG_FILE);
-                    if(fis.util.isFile(componentJson)){
+                    if(light.util.isFile(componentJson)){
                         installByComponentConfig(dir, componentJson, options, callback);
                     }
                 }else{
@@ -206,8 +205,8 @@ var RepoClient = require("fis-repo-client"),
     }
 
     function installByComponentConfig(dir, configFile, options, callback){
-        if(fis.util.isFile(configFile)){
-            var config = fis.util.readJSON(configFile),
+        if(light.util.isFile(configFile)){
+            var config = light.util.readJSON(configFile),
                 dependencies = config.dependencies,
                 params = [];
             if(dependencies && !isEmptyObject(dependencies)){
