@@ -20,7 +20,7 @@ exports.register = function(commander){
                 if(error){
                     client.util.log("error", "Publish error : " + error, "red");
                 }else{
-                    client.util.log("log", "Publish success : " + message, "blue");
+                    client.util.log("log", "Publish success : " + message, "green");
                 }
             });
     });

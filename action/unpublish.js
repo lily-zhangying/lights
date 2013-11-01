@@ -30,7 +30,7 @@ exports.register =  function(commander){
                 if(error){
                     client.util.log("error", "Unpublish error : " + error, "red");
                 }else{
-                    client.util.log("log", "Unpublish success : " + message, "blue");
+                    client.util.log("log", "Unpublish success : " + message, "green");
                 }
             });
         }else{
