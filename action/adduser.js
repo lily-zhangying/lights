@@ -10,7 +10,7 @@ exports.register = function(commander){
                         if(error){
                             client.util.log("error", "Adduser error : " + error, "red");
                         }else{
-                            client.util.log("log", "Adduser success : " + message, "blue");
+                            client.util.log("log", "Adduser success : " + message, "green");
                         }
                         process.exit(1);
                     });

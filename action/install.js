@@ -40,8 +40,9 @@ var light = require("../light.js"),
                         if(error){
                             client.util.log("error", "Install error : " + error, "red");
                         }else{
-                            client.util.log("log", "Install success : ", "blue");
+                            client.util.log("log", "Install success : ", "green");
                             var componentDir = dir + "/" + component.name;
+                            console.log(componentDir);
                             scaffold(componentDir, function(){
                                 process.exit(1);
                             });
@@ -54,7 +55,7 @@ var light = require("../light.js"),
                         if(error){
                             client.util.log("error", "Install error : " + error, "red");
                         }else{
-                            client.util.log("log", "Install success : ", "blue");
+                            client.util.log("log", "Install success : ", "green");
                             if(light.util.isFile(configFile)){
                                 var config = light.util.readJSON(configFile),
                                     dependencies = config.dependencies,
@@ -72,9 +73,8 @@ var light = require("../light.js"),
                     });
                 }
             });
-};
 
-    function isEmptyObject(obj){
+          function isEmptyObject(obj){
         for(var name in obj){
             return false;
         }
@@ -230,3 +230,7 @@ var light = require("../light.js"),
             callback(CONFIG_FILE + " not exist!");
         }
     }
+
+};
+
+  
