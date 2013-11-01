@@ -111,7 +111,7 @@ var light = require("../light.js"),
 
                         //替换文件内容
                         if(light.util.isTextFile(files[i])){
-                            var content = light.util.read(files[i]);
+                            var content = light.util.read(files[i]).toString();
                             if(keyReg.test(content)){
                                 var new_content = content.replace(keyReg, function(){
                                     var args = Array.prototype.slice.call(arguments);

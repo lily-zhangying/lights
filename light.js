@@ -22,37 +22,17 @@ light.cli.help = function(){
             '  Usage: ' + light.cli.name + ' <command>',
             '',
             '  Commands:',
-            ''
+            '',
+            ' adduser'
         ];
-
-        // prefix = 'fis-command-',
-        // prefixLen = prefix.length;
-    
-    // //built-in commands
-    // var deps = {
-    //     'fis-command-release' : true,
-    //     'fis-command-install' : true,
-    //     'fis-command-server' : true
-    // };
-    // //from package.json dependencies
-    // fis.util.merge(deps, fis.cli.info.dependencies);
-    // //traverse
-    // fis.util.map(deps, function(name){
-    //     if(name.indexOf(prefix) === 0){
-    //         name = name.substring(prefixLen);
-    //         var cmd = fis.require('command', name);
-    //         name = fis.util.pad(cmd.name || name, 12);
-    //         content.push('    ' + name + (cmd.desc || ''));
-    //     }
-    // // });
-    // content = content.concat([
-    //     '',
-    //     '  Options:',
-    //     '',
-    //     '    -h, --help     output usage information',
-    //     '    -v, --version  output the version number'
-    //     ''
-    // ]);
+    content = content.concat([
+         '',
+         '  Options:',
+         '',
+         '    -h, --help     output usage information',
+         '    -v, --version  output the version number',
+         ''
+    ]);
     console.log(content.join('\n'));
 };
 
