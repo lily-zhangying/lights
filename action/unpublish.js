@@ -20,7 +20,7 @@ exports.register =  function(commander){
     commander
      .action(function(){
          var args = Array.prototype.slice.call(arguments);
-         if(args && args.length > 0){
+         if(args && args.length > 1){
             var componentInfo = args[0],
                 component = {
                     name : componentInfo,
