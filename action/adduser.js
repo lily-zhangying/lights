@@ -1,6 +1,16 @@
 var light = require("../light.js"),
     client = light.client;
 
+exports.name = 'adduser';
+exports.desc = 'add user of light';
+exports.usage = [
+    '',
+    '',
+    '    light adduser',
+    '',
+    '    Then enter stuff at the prompts'
+].join('\n');
+
 exports.register = function(commander){
     commander.action(function(){
         commander.prompt("Input Username: ", function(name){

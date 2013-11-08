@@ -8,8 +8,17 @@ var light = require("../light.js"),
     CONFIG_FILE = "package.json";
 
     exports.name = 'install';
-    exports.usage = '<names> [path] [options]';
+    exports.usage = [
+        '',
+        '',
+        '    light install',
+        '    light insl <pkg>',
+        '    light install <pkg>@<version>'
+    ].join('\n');
+
     exports.desc = 'install components and demos';
+
+
     exports.register = function install(commander){
         commander
             .option('--deps', 'Install dependencies component', Boolean)
@@ -17,7 +26,7 @@ var light = require("../light.js"),
                 var args = Array.prototype.slice.call(arguments);
                 var dir = process.cwd(),
                     options = {
-                        deps : commander.deps
+                        deps : commander.deps || true
                     };
                 if(args.length >= 1 && typeof args[0] == "string"){
                     var componentInfo = args[0],

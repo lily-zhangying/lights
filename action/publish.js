@@ -8,6 +8,16 @@ var light = require("../light.js"),
     RD = "}}",
     CONFIG_FILE = "package.json";
 
+    exports.name = 'publish';
+    exports.usage = [
+        '',
+        '',
+        '   light publish',
+        '   light publish <pkg>',
+        '',
+        '   Notice: publish ./ if no argument supplied'
+    ].join('\n');
+
 exports.register = function(commander){
     commander
         .option('--force', 'Publish an exist version component', Boolean)

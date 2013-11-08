@@ -2,6 +2,15 @@ var light = require("../light.js"),
     client = light.client,
     cols = process.stdout.columns || 80;
 
+exports.name = 'search';
+    exports.usage = [
+        '',
+        '',
+        '    light search <keyword>',
+        '',
+        '    find more pkgs: www.lights.baidu.com'
+    ].join('\n');
+
 exports.register = function(commander){
     commander
      .action(function(){

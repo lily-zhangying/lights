@@ -66,17 +66,11 @@ light.cli.version = function(){
 };
 
 
-// light.domain = "fe.baidu.com",
-// light.port = "8889";
+light.domain = "fedev.baidu.com",
+light.port = "8889";
 
-light.domain = "localhost",
-light.port = "3459";
-
-light.cli.client = function(repos){
-    var RepoClient = require("fis-repo-client"),
-        domain = domain ||  "fe.baidu.com",
-        port = port || "8889";
-};
+//light.domain = "localhost",
+//light.port = "3459";
 
 var RepoClient = require("fis-repo-client");
 light.client = new RepoClient(light.domain, light.port);
@@ -92,6 +86,16 @@ function hasArgv(argv, search){
     return ret;
 }
 
+light.require = function(path, cliName){
+    try {
+        return require(path);
+    } catch(e) {
+        light.cli.help();
+        e.message = 'light do not support command [' + cliName + ']';
+        light.log.error(e);
+    }
+};
+
 //run cli tools
 light.cli.run = function(argv){
     var first = argv[2];
@@ -100,20 +104,23 @@ light.cli.run = function(argv){
     } else if(first === '-v' || first === '--version'){
         light.cli.version();
     }else if(first === '--repos'){
+        //todo repos可以设置
         light.cli.client(argv[3]);
     }else if(first[0] === '-'){
         light.cli.help();
     } else {
         //register command
-        var commander = light.cli.commander = require('commander');
-        var cmd = require('./action/' + argv[2] + '.js');
-        cmd.register(
-            commander
-                .command(cmd.name || first)
-                .usage(cmd.usage)
-                .description(cmd.desc)
-        );
-        commander.parse(argv);
+        var commander = light.cli.commander = require('commander'),
+            path = './action/' + argv[2] + '.js';
+
+        var cmd = light.require(path, argv[2]);
+            cmd.register(
+                commander
+                    .command(cmd.name || first)
+                    .usage(cmd.usage)
+                    .description(cmd.desc)
+            );
+            commander.parse(argv); 
     }
 };
 

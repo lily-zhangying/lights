@@ -8,6 +8,14 @@ var light = require("../light.js"),
     RD = "}}",
     CONFIG_FILE = "package.json";
 
+    exports.name = 'unpublish';
+    exports.usage = [
+        '',
+        '',
+        '    light unpublish <project>[@<version>]',
+    ].join('\n');
+
+
 exports.register =  function(commander){
     commander
      .action(function(){

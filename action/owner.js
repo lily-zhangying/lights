@@ -9,6 +9,16 @@ var light = require("../light.js"),
     RD = "}}",
     CONFIG_FILE = "package.json";
 
+exports.usage = [
+    '',
+    '',
+    '    light owner add <username> <pkg>',
+    '    light owner rm  <username> <pkg>',
+    '    light owner ls  <pkg>'
+].join('\n');
+
+exports.desc = 'change ownership of resource';
+
 exports.register = function owner(commander){
     commander
     .action(function(){
