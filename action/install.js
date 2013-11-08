@@ -12,7 +12,7 @@ var light = require("../light.js"),
         '',
         '',
         '    light install',
-        '    light insl <pkg>',
+        '    light install <pkg>',
         '    light install <pkg>@<version>'
     ].join('\n');
 

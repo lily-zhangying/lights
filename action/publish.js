@@ -13,9 +13,8 @@ var light = require("../light.js"),
         '',
         '',
         '   light publish',
-        '   light publish <pkg>',
         '',
-        '   Notice: publish ./ if no argument supplied'
+        '   Notice: publish ./ directory which must has package.json file'
     ].join('\n');
 
 exports.register = function(commander){
