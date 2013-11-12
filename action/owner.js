@@ -65,6 +65,9 @@ exports.register = function owner(commander){
                     client.util.log("error", "Owner " + op_type + " error : missing param", "red", true);
                 }
                 break;
+            default:
+                client.util.log("error", "error: please input [light owner -h ]for usage", "red", true);
+                break;
         }
 
         client.owner(op_type, pkg, options, function(error, message){
