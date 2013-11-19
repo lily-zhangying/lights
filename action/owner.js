@@ -74,7 +74,7 @@ exports.register = function owner(commander){
             if(error){
                 client.util.log("error", "Owner " + op_type + " error : " + error, "red");
             }else{
-                client.util.log("error", "Owner " + op_type + " success" + message, "green");
+                client.util.log("log", "Owner " + op_type + " success" + message, "green");
             }
         });
 

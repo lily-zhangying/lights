@@ -25,13 +25,36 @@ exports.register = function(commander){
             options = {
                 force : commander.force
             };
-            client.publish(dir, options, function(error, message){
-                if(error){
-                    client.util.log("error", "Publish error : " + error, "red");
-                }else{
-                    client.util.log("log", "Publish success : " + message, "green");
-                }
-            });
-    });
-    
+            var username = client.conf.getConf("username");
+            if(username){
+                //有用户 publish directly
+                client.publish(dir, options, cb);
+            }else{
+                //没有用户 adduser
+                client.util.log("log", "You have to adduser first.\n", "yellow");
+                commander.prompt("Input Username: ", function(name){
+                    commander.password("Input Password: ", '*', function(password){
+                        commander.prompt("Input Email: ", function(email){
+                            client.adduser(name, password, email, function(error, message){
+                                if(error){
+                                    client.util.log("error", "Adduser error : " + error, "red", true);
+                                }else{
+                                    client.util.log("log", "Adduser success : " + message, "green");
+                                    client.publish(dir, options, cb);
+                                }
+                            });
+                        });
+                    });
+                });
+            }
+        });
+};
+
+function cb(e, m){
+    if(e){
+        client.util.log("error", "Publish error : " + e, "red", true);
+    }else{
+        client.util.log("log", "Publish success : " + m, "green", true);
+    }    
 }
+
