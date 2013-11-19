@@ -12,6 +12,7 @@ var light = require("../light.js"),
     exports.usage = [
         '',
         '',
+        '    light unpublish',
         '    light unpublish <project>[@<version>]',
     ].join('\n');
 
@@ -42,7 +43,23 @@ exports.register =  function(commander){
                 }
             });
         }else{
-            client.util.log("error", "Unpublish error : Must have a component name!", "red");
+             var file = process.cwd() + '/' + CONFIG_FILE;
+             if(light.util.isFile(file)){
+                 var json = light.util.readJSON(file);
+                 var component = {
+                     name : json.name,
+                     version : json.version || 'all'
+                 };
+                 client.unpublish(component, {}, function(error, message){
+                     if(error){
+                         client.util.log("error", "Unpublish error : " + error, "red");
+                     }else{
+                         client.util.log("log", "Unpublish success : " + message, "green");
+                     }
+                 });
+             }else{
+                 client.util.log("error", "Unpublish error : Must have a component name!", "red");
+             }
         }
 
      });
