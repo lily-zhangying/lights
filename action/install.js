@@ -51,7 +51,6 @@ var light = require("../light.js"),
                         }else{
                             client.util.log("log", "Install success : ", "green");
                             var componentDir = dir + "/" + component.name;
-                            console.log(componentDir);
                             scaffold(componentDir, function(){
                                 process.exit(1);
                             });

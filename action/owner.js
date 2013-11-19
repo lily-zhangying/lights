@@ -46,7 +46,7 @@ exports.register = function owner(commander){
                     }
                 }else if(args.length > 3){
                     options.username = args[1];
-                    pkg.name = args[2];console.log(pkg.name);
+                    pkg.name = args[2];
                 }else{
                     client.util.log("error", "Owner " + op_type + " error : missing param", "red", true);
                 }
