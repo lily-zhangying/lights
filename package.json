@@ -11,7 +11,7 @@
   },
    "dependencies": {
     "commander" : "1.3.2",
-    "fis-repo-client" : "0.0.6",
+    "fis-repo-client" : "*",
   	"async" : "0.2.9",
   	"colors" : "0.6.2",
   	"path" : "0.4.9"
