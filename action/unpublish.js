@@ -32,6 +32,9 @@ exports.register =  function(commander){
                 var infos = componentInfo.split("@");
                 component.name = infos[0];
                 component.version = infos[1];
+                if(component.version == 'latest'){
+                    client.util.log("error", "Unpublish error : Cannot unpublish latest directly, please see[  light unpublish --help ]", "red", true);
+                }
             }
         }else{
             //unpublish 当前文件夹

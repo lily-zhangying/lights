@@ -8,7 +8,7 @@ exports.name = 'search';
         '',
         '    light search <keyword>',
         '',
-        '    find more pkgs: www.lights.baidu.com'
+        '    find more pkgs: http://lights.baidu.com'
     ].join('\n');
 
 exports.register = function(commander){
