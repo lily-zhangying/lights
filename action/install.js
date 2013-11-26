@@ -49,7 +49,7 @@ var light = require("../light.js"),
                         if(error){
                             client.util.log("error", "Install error : " + error, "red");
                         }else{
-                            client.util.log("log", "Install success : ", "green");
+                            client.util.log("log", "Install success : Install [" + component.name + '@' + component.version +"] success", "green");
                             var componentDir = dir + "/" + component.name;
                             scaffold(componentDir, function(){
                                 process.exit(1);
@@ -63,7 +63,7 @@ var light = require("../light.js"),
                         if(error){
                             client.util.log("error", "Install error : " + error, "red");
                         }else{
-                            client.util.log("log", "Install success : ", "green");
+                            client.util.log("log", "Install success : Install dependencies success", "green");
                             if(light.util.isFile(configFile)){
                                 var config = light.util.readJSON(configFile),
                                     dependencies = config.dependencies,
