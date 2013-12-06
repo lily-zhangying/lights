@@ -14,6 +14,7 @@ exports.usage = [
 
 exports.register = function(commander){
     commander.action(function(){
-
+//config set
+        //config get
     });
 };
