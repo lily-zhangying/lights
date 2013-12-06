@@ -21,7 +21,7 @@ var light = require("../light.js"),
 
     exports.register = function install(commander){
         commander
-            .option('--deps', 'Install dependencies component', Boolean)
+            .option("--repos <url>", "repository")
             .action(function(){
                 var args = Array.prototype.slice.call(arguments);
                 var dir = process.cwd(),
