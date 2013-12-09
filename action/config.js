@@ -40,7 +40,9 @@ exports.register = function(commander){
                         client.util.log('error', 'Sorry, Set invalid config. the valid config include: ' + exports.configKeys.join(', '), 'red');
                     }else{
                         //检测repos结构
-
+                        if(key == 'repos'){
+//                            var reg = '';
+                        }
                         var obj = {};
                         obj[key] = value;
                         client.conf.setConf(obj);
@@ -63,6 +65,7 @@ exports.register = function(commander){
                 break;
             default :
                 client.util.log("log", exports.usage, '');
+                break;
         };
     });
 };
