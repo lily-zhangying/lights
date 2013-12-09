@@ -1,12 +1,5 @@
 var light = require("../light.js"),
-    client = light.client,
-    cols = process.stdout.columns || 80,
-    path = require('path'),
-    async = require('async'),
-    fs = require('fs'),
-    LD = "{{",
-    RD = "}}",
-    CONFIG_FILE = "package.json";
+    client = light.client;
 
     exports.name = 'publish';
     exports.usage = [

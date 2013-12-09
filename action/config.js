@@ -12,9 +12,31 @@ exports.usage = [
     ''
 ].join('\n');
 
+exports.configKeys = [
+    'username',
+    '_auth',
+    'email',
+    'repos'
+];
+
 exports.register = function(commander){
     commander.action(function(){
-//config set
-        //config get
+        var args = Array.prototype.slice.call(arguments);
+        var action = args[0];
+        switch (action){
+            case 'set':
+                var key = args[1],
+                    value = args[2];
+
+                break;
+            case 'get':
+                var key = args[1] || 'all';
+                break;
+            case 'ls' :
+                var key = args[1] || 'all';
+                break;
+            default :
+                client.util.log("log", exports.usage, "black");
+        };
     });
 };
