@@ -13,11 +13,19 @@ exports.usage = [
 ].join('\n');
 
 exports.configKeys = [
-    'username',
-    '_auth',
-    'email',
     'repos'
 ];
+
+function getAllConf(){
+    var conf = client.conf.getAll();
+    var r = [];
+    for(var i in conf){
+        if(i != '_auth'){
+            r.push(i + ': ' + conf[i]);
+        }
+    }
+    return r.join('\n');
+};
 
 exports.register = function(commander){
     commander.action(function(){
@@ -27,16 +35,34 @@ exports.register = function(commander){
             case 'set':
                 var key = args[1],
                     value = args[2];
+                if(key && value){
+                    if(!client.util.in_array(key, exports.configKeys)){
+                        client.util.log('error', 'Sorry, Set invalid config. the valid config include: ' + exports.configKeys.join(', '), 'red');
+                    }else{
+                        //检测repos结构
 
+                        var obj = {};
+                        obj[key] = value;
+                        client.conf.setConf(obj);
+                        client.util.log('log', 'Set config [' + key + ": " + value + '] success!', 'green');
+                    }
+                }else{
+                    client.util.log("error", exports.usage, "");
+                }
                 break;
             case 'get':
-                var key = args[1] || 'all';
+                var key = args[1];
+                if(key){
+                    client.util.log('log', key + ': ' + (client.conf.get(key) || 'null'), 'yellow');
+                }else{
+                    client.util.log('log', getAllConf() || 'null', 'yellow');
+                }
                 break;
             case 'ls' :
-                var key = args[1] || 'all';
+                client.util.log('log', getAllConf() || 'null', 'yellow');
                 break;
             default :
-                client.util.log("log", exports.usage, "black");
+                client.util.log("log", exports.usage, '');
         };
     });
 };
