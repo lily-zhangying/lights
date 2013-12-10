@@ -3,8 +3,8 @@
 var light = module.exports;
 
 light.util = require('./lib/util.js');
-
 light.log = require('./lib/log.js');
+light.config = require('./lib/config.js');
 
 light.cli = {};
 
@@ -28,7 +28,7 @@ light.cli.help = function(){
             '       adduser      add user of light',
             '       publish      publish resource to light',
             '       unpublish    remove resource to light',
-            '       owner        change ownership of resource',
+            '       owner        change ownership of resource'
         ];
     content = content.concat([
             '',
@@ -50,24 +50,6 @@ light.cli.version = function(){
     console.log(content);
 };
 
-
-light.domain = "fedev.baidu.com",
-light.port = "8889";
-
-var RepoClient = require("fis-repo-client");
-light.client = new RepoClient(light.domain, light.port);
-
-function hasArgv(argv, search){
-    var pos = argv.indexOf(search);
-    var ret = false;
-    while(pos > -1){
-        argv.splice(pos, 1);
-        pos = argv.indexOf(search);
-        ret = true;
-    }
-    return ret;
-}
-
 light.require = function(path, cliName){
     try {
         return require(path);
@@ -85,9 +67,6 @@ light.cli.run = function(argv){
         light.cli.help();
     } else if(first === '-v' || first === '--version'){
         light.cli.version();
-    }else if(first === '--repos'){
-        //todo repos可以设置
-        light.cli.client(argv[3]);
     }else if(first[0] === '-'){
         light.cli.help();
     } else {

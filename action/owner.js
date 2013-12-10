@@ -1,12 +1,7 @@
 
 var light = require("../light.js"),
-    client = light.client,
-    cols = process.stdout.columns || 80,
-    path = require('path'),
-    async = require('async'),
-    fs = require('fs'),
-    LD = "{{",
-    RD = "}}",
+    RepoClient = require("fis-repo-client"),
+    client = new RepoClient(light.config.get('repos')),
     CONFIG_FILE = "package.json";
 
 exports.usage = [

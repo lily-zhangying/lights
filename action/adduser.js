@@ -1,5 +1,6 @@
 var light = require("../light.js"),
-    client = light.client;
+    RepoClient = require("fis-repo-client"),
+    client = new RepoClient(light.config.get('repos'));
 
 exports.name = 'adduser';
 exports.desc = 'add user of light';

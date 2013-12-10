@@ -1,14 +1,15 @@
 var light = require("../light.js"),
-    client = light.client;
+    RepoClient = require("fis-repo-client"),
+    client = new RepoClient(light.config.get('repos'));
 
-    exports.name = 'publish';
-    exports.usage = [
-        '',
-        '',
-        '   light publish',
-        '',
-        '   Notice: publish ./ directory which must has package.json file'
-    ].join('\n');
+exports.name = 'publish';
+exports.usage = [
+    '',
+    '',
+    '   light publish',
+    '',
+    '   Notice: publish ./ directory which must has package.json file'
+].join('\n');
 
 exports.register = function(commander){
     commander
@@ -18,7 +19,7 @@ exports.register = function(commander){
             options = {
                 force : commander.force
             };
-            var username = client.conf.getConf("username");
+            var username = client.conf.get("username");
             if(username){
                 //有用户 publish directly
                 client.publish(dir, options, cb);

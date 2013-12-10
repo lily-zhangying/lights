@@ -14,7 +14,8 @@
     "fis-repo-client" : "*",
   	"async" : "0.2.9",
   	"colors" : "0.6.2",
-  	"path" : "0.4.9"
+  	"path" : "0.4.9",
+    "ini": "1.0.0"
   },
   "keywords": [
     "lightjs",

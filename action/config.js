@@ -1,5 +1,7 @@
 var light = require('../light.js');
-var client = light.client;
+    RepoClient = require("fis-repo-client"),
+    client = new RepoClient(light.config.get('repos'));
+
 
 exports.name = 'config';
 exports.desc = 'edit config of light';
@@ -40,9 +42,9 @@ exports.register = function(commander){
                         client.util.log('error', 'Sorry, Set invalid config. the valid config include: ' + exports.configKeys.join(', '), 'red');
                     }else{
                         //检测repos结构
-                        if(key == 'repos'){
-//                            var reg = '';
-                        }
+//                        if(key == 'repos'){
+////                            var reg = '';
+//                        }
                         var obj = {};
                         obj[key] = value;
                         client.conf.setConf(obj);

@@ -1,5 +1,6 @@
 var light = require("../light.js"),
-    client = light.client,
+    RepoClient = require("fis-repo-client"),
+    client = new RepoClient(light.config.get('repos')),
     cols = process.stdout.columns || 80;
 
 exports.name = 'search';
