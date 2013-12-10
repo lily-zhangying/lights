@@ -3,7 +3,9 @@
 var light = module.exports;
 
 light.util = require('./lib/util.js');
+
 light.log = require('./lib/log.js');
+
 light.config = require('./lib/config.js');
 
 light.cli = {};
