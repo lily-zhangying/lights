@@ -30,7 +30,8 @@ light.cli.help = function(){
             '       adduser      add user of light',
             '       publish      publish resource to light',
             '       unpublish    remove resource to light',
-            '       owner        change ownership of resource'
+            '       owner        change ownership of resource',
+            '       config       set or get config of light'
         ];
     content = content.concat([
             '',
