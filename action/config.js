@@ -11,6 +11,8 @@ exports.usage = [
     '   light config set <key> <value>',
     '   light config get [<key>]',
     '   light config ls',
+    '',
+    '   key includes: repos, username, email',
     ''
 ].join('\n');
 
@@ -37,14 +39,10 @@ exports.register = function(commander){
             case 'set':
                 var key = args[1],
                     value = args[2];
-                if(key && value){
+                if(light.util.is(key, 'String') && light.util.is(value, 'String')){
                     if(!client.util.in_array(key, exports.configKeys)){
                         client.util.log('error', 'Sorry, Set invalid config. the valid config include: ' + exports.configKeys.join(', '), 'red');
                     }else{
-                        //检测repos结构
-//                        if(key == 'repos'){
-////                            var reg = '';
-//                        }
                         var obj = {};
                         obj[key] = value;
                         client.conf.setConf(obj);
@@ -56,10 +54,10 @@ exports.register = function(commander){
                 break;
             case 'get':
                 var key = args[1];
-                if(key){
+                if(light.util.is(key, 'String')){
                     client.util.log('log', key + ': ' + (client.conf.get(key) || 'null'), 'yellow');
                 }else{
-                    client.util.log('log', getAllConf() || 'null', 'yellow');
+                    client.util.log("log", exports.usage, '');
                 }
                 break;
             case 'ls' :
