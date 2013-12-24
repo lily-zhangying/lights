@@ -77,7 +77,7 @@ lights.cli.run = function(argv){
         var commander = lights.cli.commander = require('commander'),
             path = './action/' + argv[2] + '.js';
 
-        var cmd = light.require(path, argv[2]);
+        var cmd = lights.require(path, argv[2]);
             cmd.register(
                 commander
                     .command(cmd.name || first)
