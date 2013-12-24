@@ -1,3 +1,0 @@
-#!/usr/bin/env node
-
-require('../light.js').cli.run(process.argv);
