@@ -1,4 +1,4 @@
-var light = require("../light.js"),
+var lights = require("../lights.js"),
     RepoClient = require("fis-repo-client"),
     path = require('path'),
     async = require('async'),
@@ -11,9 +11,9 @@ var light = require("../light.js"),
     exports.usage = [
         '',
         '',
-        '    light install',
-        '    light install <pkg>',
-        '    light install <pkg>@<version>'
+        '    lights install',
+        '    lights install <pkg>',
+        '    lights install <pkg>@<version>'
     ].join('\n');
 
     exports.desc = 'install components and demos';
@@ -23,7 +23,7 @@ var light = require("../light.js"),
         commander
             .option("--repos <url>", "repository")
             .action(function(){
-                var client = new RepoClient(commander.repos || light.config.get('repos'));
+                var client = new RepoClient(commander.repos || lights.config.get('repos'));
                 var args = Array.prototype.slice.call(arguments);
                 var dir = process.cwd(),
                     options = {
@@ -65,8 +65,8 @@ var light = require("../light.js"),
                             client.util.log("error", "Install error : " + error, "red");
                         }else{
                             client.util.log("log", "Install success : Install dependencies success", "green");
-                            if(light.util.isFile(configFile)){
-                                var config = light.util.readJSON(configFile),
+                            if(lights.util.isFile(configFile)){
+                                var config = lights.util.readJSON(configFile),
                                     dependencies = config.dependencies,
                                     componentDirs = [];
                                 for(var depend in dependencies){
@@ -86,8 +86,8 @@ var light = require("../light.js"),
 
                     var configFile = dir + "/" + CONFIG_FILE;
 
-                    if(light.util.isFile(configFile)){
-                        var config = light.util.readJSON(configFile),
+                    if(lights.util.isFile(configFile)){
+                        var config = lights.util.readJSON(configFile),
                             scaffold = config.scaffold;
                         if(scaffold && !isEmptyObject(scaffold)){
                             client.util.log("log", "Start component [" + config.name + "] scaffold config.", "green");
@@ -105,14 +105,14 @@ var light = require("../light.js"),
                             keyRegStr = keyRegStr.substr(0, keyRegStr.length-1);
 
                             var keyReg = new RegExp(keyRegStr, "gm"),
-                                files = light.util.find(dir);
+                                files = lights.util.find(dir);
 
                             async.mapSeries(scaffolds, prompt, function(error, values){
                                 for(var i=0; i<files.length; i++){
 
                                     //替换文件内容
-                                    if(light.util.isTextFile(files[i])){
-                                        var content = light.util.read(files[i]).toString();
+                                    if(lights.util.isTextFile(files[i])){
+                                        var content = lights.util.read(files[i]).toString();
                                         if(keyReg.test(content)){
                                             var new_content = content.replace(keyReg, function(){
                                                 var args = Array.prototype.slice.call(arguments);
@@ -123,7 +123,7 @@ var light = require("../light.js"),
                                                 }
                                                 return args[0];
                                             });
-                                            light.util.write(files[i], new_content);
+                                            lights.util.write(files[i], new_content);
                                         }
                                     }
 
@@ -138,14 +138,14 @@ var light = require("../light.js"),
                                             }
                                             return args[0];
                                         });
-                                        light.util.copy(files[i], new_file);
-                                        light.util.del(files[i]);
+                                        lights.util.copy(files[i], new_file);
+                                        lights.util.del(files[i]);
                                     }
                                 }
                                 var subDir = getSubDir(dir);
                                 for(var i=0; i<subDir.length; i++){
                                     if(keyReg.test(subDir[i])){
-                                        light.util.del(subDir[i]);
+                                        lights.util.del(subDir[i]);
                                     }
                                 }
                                 client.util.log("log", "Finish component [" + config.name + "] scaffold config.", "green");
@@ -168,12 +168,12 @@ var light = require("../light.js"),
                 };
 
                 function getSubDir(dir){
-                    if(light.util.isDir(dir)){
+                    if(lights.util.isDir(dir)){
                         var dirs = [];
                         fs.readdirSync(dir).forEach(function(p){
                             if(p[0] != "."){
                                 var tmp_file = dir + '/' + p;
-                                if(light.util.isDir(tmp_file)){
+                                if(lights.util.isDir(tmp_file)){
                                     dirs = dirs.concat(getSubDir(tmp_file));
                                 }
                             }
@@ -194,7 +194,7 @@ var light = require("../light.js"),
                         }else{
                             if(options.deps){
                                 var componentJson = path.normalize(dir + "/" + component.name + "/" + CONFIG_FILE);
-                                if(light.util.isFile(componentJson)){
+                                if(lights.util.isFile(componentJson)){
                                     installByComponentConfig(dir, componentJson, options, callback);
                                 }
                             }else{
@@ -205,8 +205,8 @@ var light = require("../light.js"),
                 };
 
                 function installByComponentConfig(dir, configFile, options, callback){
-                    if(light.util.isFile(configFile)){
-                        var config = light.util.readJSON(configFile),
+                    if(lights.util.isFile(configFile)){
+                        var config = lights.util.readJSON(configFile),
                             dependencies = config.dependencies,
                             params = [];
                         if(dependencies && !isEmptyObject(dependencies)){

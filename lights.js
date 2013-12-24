@@ -1,37 +1,37 @@
 'use strict';
 
-var light = module.exports;
+var lights = module.exports;
 
-light.util = require('./lib/util.js');
+lights.util = require('./lib/util.js');
 
-light.log = require('./lib/log.js');
+lights.log = require('./lib/log.js');
 
-light.config = require('./lib/config.js');
+lights.config = require('./lib/config.js');
 
-light.cli = {};
+lights.cli = {};
 
-light.cli.info = light.util.readJSON(__dirname + '/package.json');
+lights.cli.info = lights.util.readJSON(__dirname + '/package.json');
 
-light.cli.name = 'light';
+lights.cli.name = 'lights';
 
-light.cli.color = require('colors');
+lights.cli.color = require('colors');
 
-light.cli.commander = null;
+lights.cli.commander = null;
 
-light.cli.help = function(){
+lights.cli.help = function(){
      var content = [
             '',
-            '  Usage: ' + light.cli.name + ' <command>',
+            '  Usage: ' + lights.cli.name + ' <command>',
             '',
             '  Commands:',
             '',
-            '       install      install resource from light',
-            '       search       search resource of light',
-            '       adduser      add user of light',
-            '       publish      publish resource to light',
-            '       unpublish    remove resource to light',
+            '       install      install resource from lights',
+            '       search       search resource of lights',
+            '       adduser      add user of lights',
+            '       publish      publish resource to lights',
+            '       unpublish    remove resource to lights',
             '       owner        change ownership of resource',
-            '       config       set or get config of light'
+            '       config       set or get config of lights'
         ];
     content = content.concat([
             '',
@@ -44,37 +44,37 @@ light.cli.help = function(){
     console.log(content.join('\n'));
 };
 
-light.cli.version = function(){
+lights.cli.version = function(){
     var content = [
         '',
-        '  v' + light.cli.info.version,
+        '  v' + lights.cli.info.version,
         ''
     ].join('\n');
     console.log(content);
 };
 
-light.require = function(path, cliName){
+lights.require = function(path, cliName){
     try {
         return require(path);
     } catch(e) {
-        light.cli.help();
-        e.message = 'light do not support command [' + cliName + ']';
-        light.log.error(e);
+        lights.cli.help();
+        e.message = 'lights do not support command [' + cliName + ']';
+        lights.log.error(e);
     }
 };
 
 //run cli tools
-light.cli.run = function(argv){
+lights.cli.run = function(argv){
     var first = argv[2];
     if(argv.length < 3 || first === '-h' ||  first === '--help'){
-        light.cli.help();
+        lights.cli.help();
     } else if(first === '-v' || first === '--version'){
-        light.cli.version();
+        lights.cli.version();
     }else if(first[0] === '-'){
-        light.cli.help();
+        lights.cli.help();
     } else {
         //register command
-        var commander = light.cli.commander = require('commander'),
+        var commander = lights.cli.commander = require('commander'),
             path = './action/' + argv[2] + '.js';
 
         var cmd = light.require(path, argv[2]);

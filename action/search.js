@@ -1,13 +1,13 @@
-var light = require("../light.js"),
+var lights = require("../lights.js"),
     RepoClient = require("fis-repo-client"),
-    client = new RepoClient(light.config.get('repos')),
+    client = new RepoClient(lights.config.get('repos')),
     cols = process.stdout.columns || 80;
 
 exports.name = 'search';
     exports.usage = [
         '',
         '',
-        '    light search <keyword>',
+        '    lights search <keyword>',
         '',
         '    find more pkgs: http://lights.baidu.com'
     ].join('\n');

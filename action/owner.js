@@ -1,15 +1,15 @@
 
-var light = require("../light.js"),
+var lights = require("../lights.js"),
     RepoClient = require("fis-repo-client"),
-    client = new RepoClient(light.config.get('repos')),
+    client = new RepoClient(lights.config.get('repos')),
     CONFIG_FILE = "package.json";
 
 exports.usage = [
     '',
     '',
-    '    light owner add <username> <pkg>',
-    '    light owner rm  <username> <pkg>',
-    '    light owner ls  <pkg>'
+    '    lights owner add <username> <pkg>',
+    '    lights owner rm  <username> <pkg>',
+    '    lights owner ls  <pkg>'
 ].join('\n');
 
 exports.desc = 'change ownership of resource';
@@ -33,8 +33,8 @@ exports.register = function owner(commander){
             case "add":
                 if(args.length == 3){
                     options.username = args[1];
-                    if(light.util.isFile(pkgJson)){
-                        var config = light.util.readJSON(pkgJson);
+                    if(lights.util.isFile(pkgJson)){
+                        var config = lights.util.readJSON(pkgJson);
                         pkg.name = config.name;
                     }else{
                         client.util.log("error", "Owner " + op_type + " error : missing param", "red", true);
@@ -48,8 +48,8 @@ exports.register = function owner(commander){
                 break;
             case "ls":
                 if(args.length  == 2){
-                    if(light.util.isFile(pkgJson)){
-                        var config = light.util.readJSON(pkgJson);
+                    if(lights.util.isFile(pkgJson)){
+                        var config = lights.util.readJSON(pkgJson);
                         pkg.name = config.name;
                     }else{
                         client.util.log("error", "Owner " + op_type + " error : missing param", "red", true);
@@ -61,7 +61,7 @@ exports.register = function owner(commander){
                 }
                 break;
             default:
-                client.util.log("error", "error: please input [light owner -h ]for usage", "red", true);
+                client.util.log("error", "error: please input [lights owner -h ]for usage", "red", true);
                 break;
         }
 

@@ -1,12 +1,12 @@
-var light = require("../light.js"),
+var lights = require("../lights.js"),
     RepoClient = require("fis-repo-client"),
-    client = new RepoClient(light.config.get('repos'));
+    client = new RepoClient(lights.config.get('repos'));
 
 exports.name = 'publish';
 exports.usage = [
     '',
     '',
-    '   light publish',
+    '   lights publish',
     '',
     '   Notice: publish ./ directory which must has package.json file'
 ].join('\n');

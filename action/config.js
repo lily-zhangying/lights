@@ -1,6 +1,6 @@
-var light = require('../light.js');
+var lights = require('../lights.js');
     RepoClient = require("fis-repo-client"),
-    client = new RepoClient(light.config.get('repos'));
+    client = new RepoClient(lights.config.get('repos'));
 
 
 exports.name = 'config';
@@ -8,9 +8,9 @@ exports.desc = 'edit config of light';
 exports.usage = [
     '',
     '',
-    '   light config set <key> <value>',
-    '   light config get [<key>]',
-    '   light config ls',
+    '   lights config set <key> <value>',
+    '   lights config get [<key>]',
+    '   lights config ls',
     '',
     '   key includes: repos, username, email',
     ''
@@ -39,7 +39,7 @@ exports.register = function(commander){
             case 'set':
                 var key = args[1],
                     value = args[2];
-                if(light.util.is(key, 'String') && light.util.is(value, 'String')){
+                if(lights.util.is(key, 'String') && lights.util.is(value, 'String')){
                     if(!client.util.in_array(key, exports.configKeys)){
                         client.util.log('error', 'Sorry, Set invalid config. the valid config include: ' + exports.configKeys.join(', '), 'red');
                     }else{
@@ -54,7 +54,7 @@ exports.register = function(commander){
                 break;
             case 'get':
                 var key = args[1];
-                if(light.util.is(key, 'String')){
+                if(lights.util.is(key, 'String')){
                     client.util.log('log', key + ': ' + (client.conf.get(key) || 'null'), 'yellow');
                 }else{
                     client.util.log("log", exports.usage, '');

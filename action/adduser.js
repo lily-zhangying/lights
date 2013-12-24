@@ -1,13 +1,13 @@
-var light = require("../light.js"),
+var lights = require("../lights.js"),
     RepoClient = require("fis-repo-client"),
-    client = new RepoClient(light.config.get('repos'));
+    client = new RepoClient(lights.config.get('repos'));
 
 exports.name = 'adduser';
 exports.desc = 'add user of light';
 exports.usage = [
     '',
     '',
-    '    light adduser',
+    '    lights adduser',
     '',
     '    Then enter stuff at the prompts'
 ].join('\n');

@@ -1,14 +1,14 @@
-var light = require("../light.js"),
+var lights = require("../lights.js"),
     RepoClient = require("fis-repo-client"),
-    client = new RepoClient(light.config.get('repos')),
+    client = new RepoClient(lights.config.get('repos')),
     CONFIG_FILE = "package.json";
 
     exports.name = 'unpublish';
     exports.usage = [
         '',
         '',
-        '    light unpublish',
-        '    light unpublish <project>[@<version>]',
+        '    lights unpublish',
+        '    lights unpublish <project>[@<version>]',
     ].join('\n');
 
 
@@ -17,7 +17,7 @@ exports.register =  function(commander){
     .action(function(){
         var args = Array.prototype.slice.call(arguments);
         if(args && args.length > 1){
-            //light unpublish pkg
+            //lights unpublish pkg
             var componentInfo = args[0],
                 component = {
                     name : componentInfo,
@@ -28,14 +28,14 @@ exports.register =  function(commander){
                 component.name = infos[0];
                 component.version = infos[1];
                 if(component.version == 'latest'){
-                    client.util.log("error", "Unpublish error : Cannot unpublish latest directly, please see[  light unpublish --help ]", "red", true);
+                    client.util.log("error", "Unpublish error : Cannot unpublish latest directly, please see[  lights unpublish --help ]", "red", true);
                 }
             }
         }else{
             //unpublish 当前文件夹
              var file = process.cwd() + '/' + CONFIG_FILE;
-             if(light.util.isFile(file)){
-                 var json = light.util.readJSON(file);
+             if(lights.util.isFile(file)){
+                 var json = lights.util.readJSON(file);
                  var component = {
                      name : json.name,
                      version : json.version || 'all'
