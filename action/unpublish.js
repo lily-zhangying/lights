@@ -8,7 +8,7 @@ var lights = require("../lights.js"),
         '',
         '',
         '    lights unpublish',
-        '    lights unpublish <project>[@<version>]',
+        '    lights unpublish <project>[@<version>]'
     ].join('\n');
 
 
