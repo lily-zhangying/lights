@@ -16,8 +16,10 @@ exports.register = function(commander){
     commander.action(function(){
         var args = Array.prototype.slice.call(arguments);
         if(args.length >= 1 && typeof args[0] == "string"){
-            install.installPkg(args[0], commander);
-            client.util.log("log", "Update success : Update [" + component.name + '@' + component.version +"] success", "green");
+            var options = {
+                overwrite : true
+            };
+            install.installPkg(args[0], commander, options);
         }else{
             commander.help();
         }

@@ -5,7 +5,11 @@ var lights = require("../lights.js"),
     fs = require('fs'),
     LD = "{{",
     RD = "}}",
-    CONFIG_FILE = "package.json";
+    CONFIG_FILE = "package.json",
+    DEFAULT_OPTION = {
+        deps : true,
+        overwrite : false
+    };
 
     exports.name = 'install';
     exports.usage = [
@@ -25,24 +29,25 @@ var lights = require("../lights.js"),
                 var client = new RepoClient(commander.repos || lights.config.get('repos'));
                 var args = Array.prototype.slice.call(arguments);
                 if(args.length >= 1 && typeof args[0] == "string"){
-                    exports.installPkg(args[0], commander);
+                    install(args[0], commander, DEFAULT_OPTION);
                 }else{
                     installDeps(commander);
                 }
             });
 };
 
-exports.installPkg = function(componentInfo, commander){
+exports.installPkg = function(info, commander, options){
+    options = lights.util.merge(DEFAULT_OPTION, options);
+    install(info, commander, options);
+};
+
+function install(componentInfo, commander, options){
     var client = new RepoClient(commander.repos || lights.config.get('repos'));
     var dir = lights.util.realpath(process.cwd());
-        options = {
-            deps : true
-        };
     var component = {
         name : componentInfo,
         version : "latest"
     };
-
     if(componentInfo.indexOf("@") > 0){
         var infos = componentInfo.split("@");
         component.name = infos[0];
