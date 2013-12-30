@@ -64,7 +64,7 @@ exports.register = function(commander){
                 client.util.log('log', getAllConf() || 'null', 'yellow');
                 break;
             default :
-                client.util.log("log", exports.usage, '');
+                commander.help();
                 break;
         };
     });

@@ -26,7 +26,7 @@ exports.register = function(commander){
         });
     });
    
-   function description(str) {
+    function description(str) {
         if (!str) return '';
         var space;
         var width = cols - 20;

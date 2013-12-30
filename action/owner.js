@@ -61,7 +61,7 @@ exports.register = function owner(commander){
                 }
                 break;
             default:
-                client.util.log("error", "error: please input [lights owner -h ]for usage", "red", true);
+                commander.help();
                 break;
         }
 
