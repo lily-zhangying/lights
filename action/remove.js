@@ -1,6 +1,7 @@
 var lights = require("../lights.js"),
     RepoClient = require("fis-repo-client"),
-    client = new RepoClient(lights.config.get('repos'));
+    client = new RepoClient(lights.config.get('repos')),
+    CONFIG_FILE = "package.json";
 
 exports.name = 'remove';
 exports.desc = 'remove pkg of light';
@@ -8,7 +9,6 @@ exports.usage = [
     '',
     '',
     '    lights remove <pkg>',
-    '    lights remove <pkg>[@<version>]',
     ''
 ].join('\n');
 
@@ -28,12 +28,12 @@ exports.register = function(commander){
             if(lights.util.isDir(pkgDir)){
                 var ret = lights.util.del(pkgDir);
                 if(ret){
-                    client.util.log("log", "Remove success : Remove [" + pkg + '@' + version +'] success', "green");
+                    client.util.log("log", "Remove success : Remove [" + pkg +'] success', "green");
                 }else{
-                    client.util.log("error", "Remove error : Remove [" + pkg + '@' + version +'] failed', "red");
+                    client.util.log("error", "Remove error : Remove [" + pkg +'] failed', "red");
                 }
             }else{
-                client.util.log("notice", "Remove notice : [" + pkg + '@' + version +"] does not exists!", "yellow");
+                client.util.log("notice", "Remove notice : [" + pkg  +"] does not exists!", "yellow");
             }
         }else{
             commander.help();

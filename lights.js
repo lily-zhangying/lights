@@ -30,6 +30,8 @@ lights.cli.help = function(){
             '       adduser      add user of lights',
             '       publish      publish resource to lights',
             '       unpublish    remove resource to lights',
+            '       update       update resource to latest version',
+            '       remove       remove resource of lights',
             '       owner        change ownership of resource',
             '       config       set or get config of lights'
         ];
