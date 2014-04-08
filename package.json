@@ -15,7 +15,8 @@
   	"async" : "0.2.9",
   	"colors" : "0.6.2",
   	"path" : "0.4.9",
-    "ini": "1.0.0"
+    "ini": "1.0.0",
+    "init-package-json" : "0.0.15"
   },
   "keywords": [
     "lights",
