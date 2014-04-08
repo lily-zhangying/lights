@@ -33,7 +33,8 @@ lights.cli.help = function(){
             '       update       update resource to latest version',
             '       remove       remove resource of lights',
             '       owner        change ownership of resource',
-            '       config       set or get config of lights'
+            '       config       set or get config of lights',
+            '       ini          create a package.json file'
         ];
     content = content.concat([
             '',

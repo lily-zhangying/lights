@@ -21,7 +21,7 @@ exports.register = function(commander){
 
         initJson(dir, initFile, function (error, data) {
             if(error){
-                client.util.log("error", "Add package.json failed: " + error, "green");
+                client.util.log("error", "Add package.json failed: " + error, "red");
             }else{
                 client.util.log("log", "Add package.json success! ", "green");
             }
