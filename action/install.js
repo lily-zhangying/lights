@@ -90,9 +90,10 @@ function installDeps(commander){
                         componentDirs.push(installDir + "/" + depend);
                     }
                 }
-                async.eachSeries(componentDirs, _scaffold, function(){
-                    process.exit(1);
-                });
+                //todo 执行脚本
+//                async.eachSeries(componentDirs, _scaffold, function(){
+//                    process.exit(1);
+//                });
 
                 function _scaffold(dir, cb){
                     scaffold(dir, client, commander, cb);
